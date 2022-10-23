@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <div class="page-content page-container" id="page-content">
+      <div class="padding">
+        <div class="row container d-flex justify-content-center">
+          <div class="col-lg-8 grid-margin stretch-card">
+           
+            <!--weather card-->
+            {% if city and country and temperature and weather and coordinate %}
+            <div class="card card-weather">
+              <div class="card-body">
+                <div class="weather-date-location">
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="city" required>
+                    <button class="btn btn-primary" type="submit" >Search</button>
+                  </form>
+                  <h3>{{today}}</h3>
+                  <h4>{{current_date}}</h4>
+                  <p class="text-gray">
+                    <span class="weather-location">{{city}} {{country}}</span><br>
+                    <span class="weather-date">{{DateTime}}</span>
+                  </p>
+                </div>
+                <div class="weather-data d-flex">
+                  <div class="mr-auto">
+                    <h4 class="display-3">
+                      {{temperature}} <span class="symbol">&deg;</span>C <br />
+                    </h4>
+                    <div style="display: flex; ">
+                      <h4>{{weather.0.main}} : {{weather.0.description}}</h4>
+                      <img
+                        src="http://openweathermap.org/img/wn/{{weather.0.icon}}.png"
+                        alt="Img"
+                      />
+                    </div>
+                    <p>
+                      Latitude : {{coordinate.lat}} <br />
+                      Longitude : {{coordinate.lon}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            <!--weather card ends-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
